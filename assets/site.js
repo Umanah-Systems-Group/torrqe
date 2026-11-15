@@ -112,6 +112,7 @@
       const map = (p) => [ox + p[0] * dw, oy + p[1] * dh];
       const ok = (x, y) => x > 12 && x < W - 12 && y > 60 && y < H - 40;
       let paths = '';
+      let nb = null; const on = $('.scrub-notes > div.on', sec); if (on) { const r0 = tagsEl.getBoundingClientRect(), r1 = on.getBoundingClientRect(); nb = { left: r1.left - r0.left, right: r1.right - r0.left, top: r1.top - r0.top, bottom: r1.bottom - r0.top }; }
       if (tagsEl.hasAttribute('data-all')) {
         const pts = fr.all || fr;
         const vis = want >= +(tagsEl.dataset.from || 0) && want <= +(tagsEl.dataset.to || 1);
@@ -120,10 +121,9 @@
           const m = marks[i]; if (!m) return; const [x, y] = map(p);
           const near = dmax > dmin ? 1 - (p[2] - dmin) / (dmax - dmin) : 1;
           m.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
-          m.style.opacity = vis && ok(x, y) ? (0.45 + 0.55 * near).toFixed(2) : 0; m.style.zIndex = Math.round(near * 100);
+          m.style.opacity = vis && ok(x, y) && !(nb && x > nb.left - 8 && x < nb.right + 8 && y > nb.top - 14 && y < nb.bottom + 14) ? (0.45 + 0.55 * near).toFixed(2) : 0; m.style.zIndex = Math.round(near * 100);
         });
       }
-      let nb = null; const on = $('.scrub-notes > div.on', sec); if (on) { const r0 = tagsEl.getBoundingClientRect(), r1 = on.getBoundingClientRect(); nb = { left: r1.left - r0.left, right: r1.right - r0.left, top: r1.top - r0.top, bottom: r1.bottom - r0.top }; }
       const fan = [], placed = [];
       tagSpecs.forEach((t) => {
         const p = fr[t.k]; const inR = f >= t.a && f <= t.b && p && (p.length < 3 || p[2] === 1);
