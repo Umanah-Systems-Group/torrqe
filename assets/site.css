@@ -338,3 +338,4 @@ a.machine:hover video, a.machine:hover img { transform: scale(1.04); }
 .mrow-copy li::before { top: 1.25em; }
 .legend-box:has(.legend:empty) { display: none; }
 @media (max-width: 760px) { .scrub-notes { text-shadow: 0 1px 14px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.8); } }
+@media (max-width: 760px) { .scrub-pin::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 44%; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(5, 5, 5, 0.88) 30%, transparent); } }
