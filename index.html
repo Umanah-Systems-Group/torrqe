@@ -25,9 +25,9 @@
   <nav class="nav" aria-label="Primary">
     <a href="products.html">Products</a>
     <a href="braking.html">Braking</a>
-    <a href="#inside">Inside the machine</a>
-    <a href="#markets">Markets</a>
-    <a href="#company">Company</a>
+    <a href="machines.html">Machines</a>
+    <a href="markets.html">Markets</a>
+    <a href="company.html">Company</a>
   </nav>
   <a class="btn contact-trigger" href="#contact">Talk to us <span class="arr">→</span></a>
   <button class="menu-btn" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
@@ -69,18 +69,19 @@
   </section>
 
   <!-- TEARDOWN SCRUB -->
-  <section class="scrub" style="--len: 520vh" aria-label="A humanoid robot taken apart to show its TORRQE Joints">
+  <section class="scrub" style="--len: 560vh" aria-label="A humanoid robot skeleton showing where each TORRQE Joint sits">
     <div class="scrub-pin">
       <img class="scrub-still" src="assets/film/teardown.jpg" alt="" />
       <video class="scrub-film" muted playsinline preload="none" data-src="assets/film/teardown.mp4" data-src-m="assets/film/teardown-m.mp4" aria-hidden="true"></video>
-      <div class="scrub-head"><p class="eyebrow">Teardown</p></div>
+      <div class="tags" data-track="assets/film/teardown.json"><span class="tag" data-k="neck" data-f="12-168">Neck<b>J50</b></span><span class="tag" data-k="shoulder" data-f="12-168">Shoulder<b>J76</b></span><span class="tag" data-k="elbow" data-f="12-168">Elbow<b>J76</b></span><span class="tag" data-k="wrist" data-f="12-168">Wrist<b>J50</b></span><span class="tag" data-k="waist" data-f="12-168">Waist<b>J110</b></span><span class="tag" data-k="hip" data-f="12-168">Hip<b>J110</b></span><span class="tag" data-k="knee" data-f="12-168">Knee<b>J110</b></span><span class="tag" data-k="ankle" data-f="12-168">Ankle<b>J76</b></span><span class="tag" data-k="battery" data-f="40-150">Battery</span><span class="tag" data-k="motor" data-f="226-264" data-fan>Motor stator</span><span class="tag" data-k="windings" data-f="226-264" data-fan>Copper windings</span><span class="tag" data-k="drive" data-f="226-264" data-fan>TORRQE Drive board</span><span class="tag" data-k="sun" data-f="226-264" data-fan>Sun gear · input</span><span class="tag" data-k="planets" data-f="226-264" data-fan>TORRQE Core planets</span><span class="tag" data-k="bearings" data-f="226-264" data-fan>Superelastic bearings</span><span class="tag" data-k="output" data-f="226-264" data-fan>Output ring</span></div>
+      <div class="scrub-head"><p class="eyebrow">Where we fit</p></div>
       <div class="scrub-notes">
-        <div data-at="0-0.26"><p class="eyebrow no-rule">01</p><h2 class="h3">A humanoid is mostly joints.</h2><p class="small">Hips, knees, ankles, shoulders, elbows, wrists, waist and neck. Each one is an actuator that has to be strong, smooth and stiff.</p></div>
-        <div data-at="0.26-0.44"><p class="eyebrow no-rule">02</p><h2 class="h3">Take the shell off.</h2><p class="small">Under the panels: a frame, a battery and the joints that do the work.</p></div>
-        <div data-at="0.44-0.7"><p class="eyebrow no-rule">03</p><h2 class="h3">Every orange ring is a TORRQE Joint.</h2><p class="small">Motor, Drive, Core and bearings in one sealed unit. Same family in different sizes, from wrist to hip.</p></div>
-        <div data-at="0.7-1.01"><p class="eyebrow no-rule">04</p><h2 class="h3">Inside the knee.</h2><p class="small">The motor spins the sun gear. The planets carry the load and act as the bearing, so the joint stays short, stiff and free of backlash.</p></div>
+        <div data-at="0-0.34"><p class="eyebrow no-rule">01</p><h2 class="h3">A robot is mostly joints.</h2><p class="small">Strip a humanoid to its frame and what's left is a battery, some tubes and the actuators that move it.</p></div>
+        <div data-at="0.34-0.64"><p class="eyebrow no-rule">02</p><h2 class="h3">18 TORRQE Joints, three sizes.</h2><p class="small">J110 at the hips, knees and waist. J76 at the shoulders, elbows and ankles. J50 at the wrists and neck.</p></div>
+        <div data-at="0.64-0.82"><p class="eyebrow no-rule">03</p><h2 class="h3">Into the knee.</h2><p class="small">One Joint, cut open.</p></div>
+        <div data-at="0.82-1.01"><p class="eyebrow no-rule">04</p><h2 class="h3">Motor, Drive, Core, bearings.</h2><p class="small">The motor spins the sun gear. The planets carry the load and act as the bearing, so the joint stays short, stiff and free of backlash.</p></div>
       </div>
-      <div class="scrub-steps" aria-hidden="true"><span>THE ROBOT</span><span>SHELL OFF</span><span>THE JOINTS</span><span>THE KNEE</span></div>
+      <div class="scrub-steps" aria-hidden="true"><span>THE FRAME</span><span>THE JOINTS</span><span>THE KNEE</span><span>INSIDE</span></div>
       <div class="scrub-bar"><i></i></div>
     </div>
   </section>
@@ -151,14 +152,14 @@
   <section class="sec" id="inside">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow" data-r>Inside the machine</p><h2 class="h1 split">Wherever something has to move precisely.</h2></div>
-        <p class="lede" data-r style="--d: 3">The same Joint family sits in a humanoid's knee, a robot dog's hip, an arm's wrist and a drone's camera gimbal. Orange marks every TORRQE Joint.</p>
+        <div><p class="eyebrow" data-r>Machines</p><h2 class="h1 split">Wherever something has to move precisely.</h2></div>
+        <p class="lede" data-r style="--d: 3">The same Joint family sits in a humanoid's knee, a robot dog's hip, an arm's wrist and a drone's camera gimbal. Open one to see every joint.</p>
       </div>
       <div class="machines">
-        <figure class="machine kb" data-r style="--kbo: 50% 40%"><img src="assets/img/inside-humanoid.webp" alt="See-through humanoid robot with TORRQE Joints at hips, knees, ankles, shoulders, elbows and wrists" loading="lazy" /><span class="scan"></span><figcaption class="lab"><b>Humanoid</b><span>18 JOINTS</span></figcaption></figure>
-        <figure class="machine kb" data-r style="--d: 1; --kbo: 40% 60%"><img src="assets/img/inside-dog.webp" alt="See-through robot dog with TORRQE Joints at each hip and knee" loading="lazy" /><span class="scan"></span><figcaption class="lab"><b>Robot dog</b><span>12 JOINTS</span></figcaption></figure>
-        <figure class="machine kb" data-r style="--kbo: 40% 40%"><img src="assets/img/inside-arm.webp" alt="Robot arm with TORRQE Joints at all six axes" loading="lazy" /><span class="scan"></span><figcaption class="lab"><b>Robot arm</b><span>6 AXES</span></figcaption></figure>
-        <figure class="machine kb" data-r style="--d: 1; --kbo: 55% 70%"><img src="assets/img/inside-drone.webp" alt="Drone with a three-axis camera gimbal driven by TORRQE Joints" loading="lazy" /><span class="scan"></span><figcaption class="lab"><b>Drone gimbal</b><span>3 AXES</span></figcaption></figure>
+        <a class="machine" href="machines.html#humanoid" data-r style="--d: 0"><video class="loop" muted loop playsinline preload="none" poster="assets/film/m-humanoid.jpg" data-src="assets/film/m-humanoid-loop.mp4"></video><span class="scan"></span><span class="lab"><b>Humanoid</b><span>18 JOINTS</span></span><span class="go">See every joint →</span></a>
+        <a class="machine" href="machines.html#dog" data-r style="--d: 1"><video class="loop" muted loop playsinline preload="none" poster="assets/film/m-dog.jpg" data-src="assets/film/m-dog-loop.mp4"></video><span class="scan"></span><span class="lab"><b>Robot dog</b><span>12 JOINTS</span></span><span class="go">See every joint →</span></a>
+        <a class="machine" href="machines.html#arm" data-r style="--d: 0"><video class="loop" muted loop playsinline preload="none" poster="assets/film/m-arm.jpg" data-src="assets/film/m-arm-loop.mp4"></video><span class="scan"></span><span class="lab"><b>Robot arm</b><span>6 AXES</span></span><span class="go">See every joint →</span></a>
+        <a class="machine" href="machines.html#drone" data-r style="--d: 1"><video class="loop" muted loop playsinline preload="none" poster="assets/film/m-drone.jpg" data-src="assets/film/m-drone-loop.mp4"></video><span class="scan"></span><span class="lab"><b>Drone gimbal</b><span>3 AXES</span></span><span class="go">See every joint →</span></a>
       </div>
     </div>
   </section>
@@ -168,51 +169,15 @@
     <div class="wrap">
       <div class="sec-head">
         <div><p class="eyebrow" data-r>Markets</p><h2 class="h1 split">Built first for machines that can't fail.</h2></div>
-        <p class="lede" data-r style="--d: 3">We start where precision, toughness and an American supply chain matter most, then scale into the robots everyone will use.</p>
+        <div data-r style="--d: 3; justify-self: end; display: grid; gap: 20px"><p class="lede">We start where precision, toughness and an American supply chain matter most, then scale into the robots everyone will use.</p><a class="btn" href="markets.html" style="justify-self: start">All markets <span class="arr">→</span></a></div>
       </div>
       <div class="markets">
-        <div class="market" data-r><span class="tag">FIRST</span><div><h3 class="h3">Defense and rugged robots</h3><p class="small">Turrets, sensor masts, ground robots and gimbals that need US-made, shock-proof actuators.</p></div></div>
-        <div class="market" data-r style="--d: 1"><span class="tag">FIRST</span><div><h3 class="h3">Space and vacuum</h3><p class="small">Mechanisms that can't use oil: deployables, pointing systems and robotic arms in orbit.</p></div></div>
-        <div class="market" data-r style="--d: 2"><span class="tag">NEXT</span><div><h3 class="h3">Humanoids and legged robots</h3><p class="small">Joints that carry high torque in a small package, from wrist to hip.</p></div></div>
-        <div class="market" data-r><span class="tag">NEXT</span><div><h3 class="h3">Robot arms and automation</h3><p class="small">Stiff, backlash-free axes for precise, repeatable motion.</p></div></div>
-        <div class="market" data-r style="--d: 1"><span class="tag">NEXT</span><div><h3 class="h3">Drones and payloads</h3><p class="small">Gimbal and payload axes. We build what sits after the motor, not propeller motors.</p></div></div>
-        <div class="market" data-r style="--d: 2"><span class="tag">LATER</span><div><h3 class="h3">Vehicles</h3><p class="small">Steering actuators, wheel-end reduction and the TORRQE Rotor.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS (paper) -->
-  <section class="sec paper" id="company">
-    <div class="wrap">
-      <div class="sec-head">
-        <div><p class="eyebrow" data-r>How we build</p><h2 class="h1 split">Designed in America. Built with American precision partners.</h2></div>
-        <p class="lede" data-r style="--d: 3">We design every part in-house and build early units with qualified US manufacturers. As volume grows, we bring the critical steps in-house.</p>
-      </div>
-      <div class="steps">
-        <div class="step" data-r><span class="n">01 · DESIGN</span><h3 class="h3">In-house</h3><p class="small">Architecture, tolerances, materials and the full motion stack, modelled and simulated before metal is cut.</p></div>
-        <div class="step" data-r style="--d: 1"><span class="n">02 · BUILD</span><h3 class="h3">With partners</h3><p class="small">Precision gear grinding, 5-axis machining and inspection at US shops while we prove the designs.</p></div>
-        <div class="step" data-r style="--d: 2"><span class="n">03 · SCALE</span><h3 class="h3">Onshore</h3><p class="small">Bring the critical steps in-house and build a domestic supply chain for precision motion.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEAM (paper) -->
-  <section class="sec paper" style="padding-top: 0" id="careers">
-    <div class="wrap">
-      <div class="rule" style="margin-bottom: 72px"></div>
-      <div class="sec-head" style="margin-bottom: 48px">
-        <div><p class="eyebrow" data-r>Careers</p><h2 class="h2 split">We're building a world-class team.</h2></div>
-        <div data-r style="--d: 2; justify-self: end"><p class="small">Founder</p><p style="font-size: 22px; font-weight: 600; letter-spacing: -0.02em">Amaete Umanah</p><p class="small">Founder &amp; CEO · <a href="https://x.com/amaeteumanah" target="_blank" rel="noopener noreferrer">X</a> · <a href="https://www.linkedin.com/in/amaeteumanah/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></div>
-      </div>
-      <div class="roles">
-        <a class="role contact-trigger" href="#contact" data-r>Transmission Design Engineer <span>ENGINEERING</span></a>
-        <a class="role contact-trigger" href="#contact" data-r>Precision Gear &amp; Bearing Engineer <span>ENGINEERING</span></a>
-        <a class="role contact-trigger" href="#contact" data-r>Materials &amp; Tribology Engineer <span>ENGINEERING</span></a>
-        <a class="role contact-trigger" href="#contact" data-r>NPI Engineer <span>ENGINEERING</span></a>
-        <a class="role contact-trigger" href="#contact" data-r>Test &amp; Qualification Engineer <span>ENGINEERING</span></a>
-        <a class="role contact-trigger" href="#contact" data-r>Mechatronics Engineer <span>ENGINEERING</span></a>
-        <a class="role contact-trigger" href="#contact" data-r>Technical Program Manager <span>ENGINEERING</span></a>
-        <a class="role contact-trigger" href="#contact" data-r>Sales &amp; BD Lead <span>BUSINESS</span></a>
+        <div class="market" data-r><span class="mtag">FIRST</span><div><h3 class="h3">Defense and rugged robots</h3><p class="small">Turrets, sensor masts, ground robots and gimbals that need US-made, shock-proof actuators.</p></div></div>
+        <div class="market" data-r style="--d: 1"><span class="mtag">FIRST</span><div><h3 class="h3">Space and vacuum</h3><p class="small">Mechanisms that can't use oil: deployables, pointing systems and robotic arms in orbit.</p></div></div>
+        <div class="market" data-r style="--d: 2"><span class="mtag">NEXT</span><div><h3 class="h3">Humanoids and legged robots</h3><p class="small">Joints that carry high torque in a small package, from wrist to hip.</p></div></div>
+        <div class="market" data-r><span class="mtag">NEXT</span><div><h3 class="h3">Robot arms and automation</h3><p class="small">Stiff, backlash-free axes for precise, repeatable motion.</p></div></div>
+        <div class="market" data-r style="--d: 1"><span class="mtag">NEXT</span><div><h3 class="h3">Drones and payloads</h3><p class="small">Gimbal and payload axes. We build what sits after the motor, not propeller motors.</p></div></div>
+        <div class="market" data-r style="--d: 2"><span class="mtag">LATER</span><div><h3 class="h3">Vehicles</h3><p class="small">Steering actuators, wheel-end reduction and the TORRQE Rotor.</p></div></div>
       </div>
     </div>
   </section>
@@ -232,8 +197,8 @@
   <div class="wrap">
     <div class="foot-grid">
       <div><a class="brand" href="index.html"><i></i>TORRQE</a><p class="small" style="margin-top: 14px; max-width: 34ch">American precision motion for critical machines. Built in America. Controlled with precision. Engineered to endure.</p></div>
-      <div><a href="products.html">Products</a><a href="braking.html">Braking</a><a href="#inside">Inside the machine</a></div>
-      <div><a href="#markets">Markets</a><a href="#company">Company</a><a href="#careers">Careers</a></div>
+      <div><a href="products.html">Products</a><a href="braking.html">Braking</a><a href="machines.html">Machines</a></div>
+      <div><a href="markets.html">Markets</a><a href="company.html">Company</a><a href="company.html#careers">Careers</a></div>
       <div><a class="contact-trigger" href="#contact">Contact</a><a href="https://x.com/amaeteumanah" target="_blank" rel="noopener noreferrer">X</a><a href="https://www.linkedin.com/in/amaeteumanah/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
     </div>
     <div class="giant" aria-hidden="true">TORRQE</div>

@@ -100,8 +100,72 @@
       fetch(src).then((r) => { if (!r.ok) throw new Error(r.status); return r.blob(); }).then((b) => go(URL.createObjectURL(b))).catch(() => go(src));
     };
     new IntersectionObserver((es, o) => { if (es.some((e) => e.isIntersecting)) { o.disconnect(); load(); } }, { rootMargin: '150% 0px' }).observe(sec);
+    /* labels that follow the parts: positions per frame come from Blender (track JSON) */
+    const tagsEl = $('.tags', sec); let track = null, tagSpecs = [], svg = null, marks = []; const legend = $('.legend', sec);
+    const drawTags = () => {
+      if (!track || !tagsEl) return;
+      const N = track.frames.length;
+      let f = (ready && v.duration && v.currentTime > 0.01) ? Math.round(v.currentTime * (track.fps || 24)) : Math.round(want * (N - 1));
+      f = Math.max(0, Math.min(N - 1, f)); const fr = track.frames[f];
+      const W = tagsEl.clientWidth, H = tagsEl.clientHeight, vw = track.w || 1280, vh = track.h || 720;
+      const k = Math.max(W / vw, H / vh), dw = vw * k, dh = vh * k, ox = (W - dw) / 2, oy = (H - dh) / 2;
+      const map = (p) => [ox + p[0] * dw, oy + p[1] * dh];
+      const ok = (x, y) => x > 12 && x < W - 12 && y > 60 && y < H - 40;
+      let paths = '';
+      if (tagsEl.hasAttribute('data-all')) {
+        const pts = fr.all || fr;
+        const vis = want >= +(tagsEl.dataset.from || 0) && want <= +(tagsEl.dataset.to || 1);
+        const ds = pts.map((p) => p[2] || 0); const dmin = Math.min(...ds), dmax = Math.max(...ds);
+        pts.forEach((p, i) => {
+          const m = marks[i]; if (!m) return; const [x, y] = map(p);
+          const near = dmax > dmin ? 1 - (p[2] - dmin) / (dmax - dmin) : 1;
+          m.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
+          m.style.opacity = vis && ok(x, y) ? (0.45 + 0.55 * near).toFixed(2) : 0; m.style.zIndex = Math.round(near * 100);
+        });
+      }
+      let nb = null; const on = $('.scrub-notes > div.on', sec); if (on) { const r0 = tagsEl.getBoundingClientRect(), r1 = on.getBoundingClientRect(); nb = { left: r1.left - r0.left, right: r1.right - r0.left, top: r1.top - r0.top, bottom: r1.bottom - r0.top }; }
+      const fan = [];
+      tagSpecs.forEach((t) => {
+        const p = fr[t.k]; const inR = f >= t.a && f <= t.b && p && (p.length < 3 || p[2] === 1);
+        if (!inR) { t.el.style.opacity = 0; return; }
+        const [x, y] = map(p); if (!ok(x, y)) { t.el.style.opacity = 0; return; }
+        if (t.fan) { fan.push({ t, x, y }); return; }
+        let side = x > W / 2 ? 1 : -1; let lx = x + side * Math.min(110, W * 0.09), ly = y - 28;
+        if (nb) { const lw = t.el.offsetWidth || 160; const hit = (sd, yy) => { const l0 = sd > 0 ? x + sd * Math.min(110, W * 0.09) : x + sd * Math.min(110, W * 0.09) - lw; return l0 < nb.right + 8 && l0 + lw > nb.left - 8 && yy > nb.top - 16 && yy < nb.bottom + 16; };
+          if (hit(side, ly)) { if (!hit(-side, ly)) side = -side; else ly = nb.top - 30; lx = x + side * Math.min(110, W * 0.09); } }
+        t.el.style.opacity = 1; t.el.style.transform = `translate(${lx.toFixed(1)}px,${ly.toFixed(1)}px) translate(${side > 0 ? '0' : '-100%'},-50%)`;
+        paths += `<path d="M${x.toFixed(1)} ${y.toFixed(1)}L${(x + side * 22).toFixed(1)} ${ly.toFixed(1)}L${lx.toFixed(1)} ${ly.toFixed(1)}"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5"/>`;
+      });
+      if (fan.length) {
+        fan.sort((p, q) => p.y - q.y); const narrow = W < 760; const lx = narrow ? W - 16 : W * 0.72;
+        const y0 = H * (narrow ? 0.42 : 0.2), y1 = H * (narrow ? 0.76 : 0.8);
+        fan.forEach((o, i) => {
+          const ly = y0 + (y1 - y0) * (fan.length > 1 ? i / (fan.length - 1) : 0.5);
+          o.t.el.style.opacity = 1; o.t.el.style.transform = `translate(${lx.toFixed(1)}px,${ly.toFixed(1)}px) translate(${narrow ? '-100%' : '0'},-50%)`;
+          const ex = narrow ? lx - o.t.el.offsetWidth - 6 : lx - 6;
+          paths += `<path d="M${o.x.toFixed(1)} ${o.y.toFixed(1)}L${(ex - 30).toFixed(1)} ${ly.toFixed(1)}L${ex.toFixed(1)} ${ly.toFixed(1)}"/><circle cx="${o.x.toFixed(1)}" cy="${o.y.toFixed(1)}" r="3.5"/>`;
+        });
+      }
+      svg.innerHTML = paths;
+    };
+    if (tagsEl) {
+      svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); tagsEl.prepend(svg);
+      tagSpecs = $$('.tag', tagsEl).map((el) => { const [a, b] = (el.dataset.f || '0-99999').split('-').map(Number); return { el, k: el.dataset.k, a, b, fan: el.hasAttribute('data-fan') }; });
+      fetch(tagsEl.dataset.track).then((r) => r.json()).then((j) => {
+        track = j;
+        if (tagsEl.hasAttribute('data-all') && j.names) {
+          marks = j.names.map((n, i) => { const m = document.createElement('span'); m.className = 'mk'; m.textContent = i + 1; tagsEl.appendChild(m); return m; });
+          if (legend) {
+            legend.innerHTML = j.names.map((n, i) => `<li data-i="${i}"><span class="mk-n">${i + 1}</span>${n}<em>${(j.sizes || [])[i] || ''}</em></li>`).join('');
+            $$('li', legend).forEach((li) => { li.addEventListener('mouseenter', () => marks[+li.dataset.i].classList.add('hot')); li.addEventListener('mouseleave', () => marks[+li.dataset.i].classList.remove('hot')); });
+          }
+        }
+        drawTags();
+      }).catch(() => {});
+      v.addEventListener('seeked', drawTags); addEventListener('resize', drawTags);
+    }
     const upd = () => {
-      want = progress(sec);
+      want = progress(sec); drawTags();
       notes.forEach(({ n, a, b }) => n.classList.toggle('on', want >= a && want < b));
       steps.forEach((s, i) => { const nn = notes[i]; s.classList.toggle('on', !!nn && want >= nn.a && want < nn.b); });
       if (bar) bar.style.setProperty('--p', want.toFixed(4));
@@ -129,7 +193,7 @@
 
   /* ---------- giant footer word fills with orange ---------- */
   const giant = $('.giant');
-  const onGiant = () => { if (giant) giant.style.setProperty('--fill', `${(clamp((pass(giant) - 0.1) / 0.6) * 100).toFixed(1)}%`); };
+  const onGiant = () => { if (!giant) return; const r = giant.getBoundingClientRect(); const end = document.documentElement.scrollHeight - innerHeight - scrollY; const p = end < 4 ? 1 : clamp((innerHeight - r.top) / (r.height * 1.6)); giant.style.setProperty('--fill', `${(p * 100).toFixed(1)}%`); };
 
   /* ---------- counters ---------- */
   const cio = new IntersectionObserver((es) => es.forEach((e) => {
