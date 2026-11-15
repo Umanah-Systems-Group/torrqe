@@ -124,17 +124,23 @@
         });
       }
       let nb = null; const on = $('.scrub-notes > div.on', sec); if (on) { const r0 = tagsEl.getBoundingClientRect(), r1 = on.getBoundingClientRect(); nb = { left: r1.left - r0.left, right: r1.right - r0.left, top: r1.top - r0.top, bottom: r1.bottom - r0.top }; }
-      const fan = [];
+      const fan = [], placed = [];
       tagSpecs.forEach((t) => {
         const p = fr[t.k]; const inR = f >= t.a && f <= t.b && p && (p.length < 3 || p[2] === 1);
         if (!inR) { t.el.style.opacity = 0; return; }
         const [x, y] = map(p); if (!ok(x, y)) { t.el.style.opacity = 0; return; }
+        if (nb && x > nb.left - 6 && x < nb.right + 6 && y > nb.top - 10 && y < nb.bottom + 10) { t.el.style.opacity = 0; return; }
         if (t.fan) { fan.push({ t, x, y }); return; }
-        let side = x > W / 2 ? 1 : -1; let lx = x + side * Math.min(110, W * 0.09), ly = y - 28;
-        if (nb) { const lw = t.el.offsetWidth || 160; const hit = (sd, yy) => { const l0 = sd > 0 ? x + sd * Math.min(110, W * 0.09) : x + sd * Math.min(110, W * 0.09) - lw; return l0 < nb.right + 8 && l0 + lw > nb.left - 8 && yy > nb.top - 16 && yy < nb.bottom + 16; };
-          if (hit(side, ly)) { if (!hit(-side, ly)) side = -side; else ly = nb.top - 30; lx = x + side * Math.min(110, W * 0.09); } }
-        t.el.style.opacity = 1; t.el.style.transform = `translate(${lx.toFixed(1)}px,${ly.toFixed(1)}px) translate(${side > 0 ? '0' : '-100%'},-50%)`;
-        paths += `<path d="M${x.toFixed(1)} ${y.toFixed(1)}L${(x + side * 22).toFixed(1)} ${ly.toFixed(1)}L${lx.toFixed(1)} ${ly.toFixed(1)}"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5"/>`;
+        const lw = t.el.offsetWidth || 120, lh = t.el.offsetHeight || 24, gap = Math.min(110, W * 0.09);
+        const box = (sd, yy) => { let l = sd > 0 ? x + gap : x - gap - lw; l = Math.max(6, Math.min(W - lw - 6, l)); return { l, r: l + lw, t: yy - lh / 2, b: yy + lh / 2 }; };
+        const clash = (bx) => (nb && bx.l < nb.right + 8 && bx.r > nb.left - 8 && bx.t < nb.bottom + 10 && bx.b > nb.top - 10) || placed.some((q) => bx.l < q.r + 4 && bx.r > q.l - 4 && bx.t < q.b + 3 && bx.b > q.t - 3);
+        let side = x > W / 2 ? 1 : -1, ly = y - 28, bx = box(side, ly);
+        if (clash(bx)) { const tries = [[-side, ly], [side, y + 28], [-side, y + 28]]; let okk = false;
+          for (const [sd, yy] of tries) { const b2 = box(sd, yy); if (!clash(b2)) { side = sd; ly = yy; bx = b2; okk = true; break; } }
+          if (!okk) { t.el.style.opacity = 0; return; } }
+        placed.push(bx); const ex = side > 0 ? bx.l : bx.r; const kx = x + (ex > x ? 1 : -1) * Math.min(22, Math.abs(ex - x) / 2);
+        t.el.style.opacity = 1; t.el.style.transform = `translate(${bx.l.toFixed(1)}px,${ly.toFixed(1)}px) translate(0,-50%)`;
+        paths += `<path d="M${x.toFixed(1)} ${y.toFixed(1)}L${kx.toFixed(1)} ${ly.toFixed(1)}L${ex.toFixed(1)} ${ly.toFixed(1)}"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5"/>`;
       });
       if (fan.length) {
         fan.sort((p, q) => p.y - q.y); const narrow = W < 760; const lx = narrow ? W - 16 : W * 0.72;
