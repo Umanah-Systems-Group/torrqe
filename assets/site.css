@@ -236,7 +236,7 @@ section { position: relative; }
 .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
 .foot a { color: #c9c8c2; display: block; padding: 4px 0; font-size: 14px; transition: color 0.3s; }
 .foot a:hover { color: var(--orange); }
-.foot .giant { font-weight: 800; letter-spacing: -0.06em; font-size: clamp(80px, 21vw, 360px); line-height: 0.8; margin-top: 64px; color: transparent; -webkit-text-stroke: 1px rgba(241, 240, 234, 0.18); background: linear-gradient(90deg, var(--orange), var(--orange)) no-repeat; background-size: var(--fill, 0%) 100%; -webkit-background-clip: text; background-clip: text; }
+.foot .giant { font-weight: 800; letter-spacing: -0.06em; font-size: clamp(80px, 21vw, 360px); line-height: 0.8; margin-top: 64px; color: transparent; background: linear-gradient(90deg, var(--orange), var(--orange)) 0 0 / var(--fill, 0%) 100% no-repeat, linear-gradient(rgba(241, 240, 234, 0.07), rgba(241, 240, 234, 0.07)); -webkit-background-clip: text; background-clip: text; }
 
 /* ---------- product page ---------- */
 .p-hero { min-height: 82svh; display: flex; align-items: flex-end; padding: 140px 0 72px; position: relative; overflow: hidden; }
